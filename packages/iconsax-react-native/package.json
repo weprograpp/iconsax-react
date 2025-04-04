@@ -1,15 +1,19 @@
 {
   "name": "iconsax-react-native",
-  "version": "0.0.8",
-  "author": "Erfan Khadivar <rendinjast@gmail.com>",
+  "version": "0.1.0",
+  "description": "Iconsax for React Native is a fork of the original Iconsax project, which is a set of 1000+ icons designed for web and mobile applications. The fork includes additional features and improvements.",
+  "contributors": [
+    "Erfan Khadivar <rendinjast@gmail.com> (https://erfan.ee)",
+    "Prograpp <contacto@prograpp.com.mx> (https://prograpp.com.mx)"
+  ],
   "homepage": "https://iconsax-react.pages.dev/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rendinjast/iconsax-react.git",
+    "url": "git+https://github.com/weprograpp/iconsax-react.git",
     "directory": "packages/iconsax-react-native"
   },
   "bugs": {
-    "url": "https://github.com/rendinjast/iconsax-react/issues"
+    "url": "https://github.com/weprograpp/iconsax-react/issues"
   },
   "publishConfig": {
     "access": "public"
