@@ -1,7 +1,7 @@
 <h1 align="center">iconsax for React and React Native</h1>
 
 <p align="center">
-  993 icons in 6 different styles, total 5,958 icons |
+  1000 icons in 6 different styles, total 6,000 icons |
 Perfectly balance | 
 24px grid-based
 <p>
@@ -20,9 +20,9 @@ Perfectly balance |
 ### React
 
 ```bash
-yarn add iconsax-react
+yarn add @weprograpp/iconsax-react
 # or
-npm i iconsax-react
+npm i @weprograpp/iconsax-react
 ```
 
 ### React Native
@@ -38,7 +38,7 @@ npm i iconsax-react-native react-native-svg
 ```jsx
 import React from 'react';
 //import icon. for React Native import from 'iconsax-react-native'
-import { EmojiHappy } from 'iconsax-react';
+import { EmojiHappy } from '@weprograpp/iconsax-react';
 
 const Example = () => {
   // then use it as a normal React Component
@@ -56,17 +56,21 @@ React applications can also use individual dynamic imports or fixed-variant impo
 
 ```jsx
 // Keeps the runtime variant prop and includes all six SVG variants.
-import { EmojiHappy } from 'iconsax-react/icons/EmojiHappy';
+import { EmojiHappy } from '@weprograpp/iconsax-react/icons/EmojiHappy';
 
 // Smallest bundle: includes only the Bulk SVG variant.
-import { EmojiHappy as BulkEmojiHappy } from 'iconsax-react/bulk/EmojiHappy';
+import { EmojiHappy as BulkEmojiHappy } from '@weprograpp/iconsax-react/bulk/EmojiHappy';
 ```
 
-Fixed paths are available under `linear`, `outline`, `broken`, `bold`, `bulk`, and `twotone`. Root and individual dynamic imports preserve the existing props, refs, defaults, and invalid-variant fallback.
+Fixed paths are available under `linear`, `outline`, `broken`, `bold`, `bulk`, and `twotone`. Root
+and individual dynamic imports preserve the existing props, refs, defaults, and invalid-variant
+fallback.
 
-`import * as Icons from 'iconsax-react'` intentionally includes the complete collection. Use it for runtime icon lookup; prefer named or individual imports in application bundles.
+`import * as Icons from '@weprograpp/iconsax-react'` intentionally includes the complete collection.
+Use it for runtime icon lookup; prefer named or individual imports in application bundles.
 
-These optimized subpaths apply only to `iconsax-react` in 0.1.0. React Native remains unchanged.
+These optimized subpaths apply only to `@weprograpp/iconsax-react` in 0.1.0. React Native remains
+unchanged.
 
 ## Props
 
