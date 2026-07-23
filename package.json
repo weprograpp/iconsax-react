@@ -1,5 +1,7 @@
 {
   "name": "iconsax",
+  "private": true,
+  "packageManager": "yarn@1.22.22",
   "description": "This is a fork of the original Iconsax project, which is a set of 1000+ icons designed for web and mobile applications. The fork includes additional features and improvements.",
   "workspaces": {
     "packages": [
@@ -18,8 +20,11 @@
   "version": "0.1.0",
   "scripts": {
     "gen": "node ./scripts/build.js",
+    "gen:react": "node ./scripts/build.js react",
+    "gen:native": "node ./scripts/build.js react-native",
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run build --ignore website",
+    "build": "yarn gen:native && lerna run build --ignore website",
+    "test:react": "yarn workspace iconsax-react test",
     "website": "yarn workspace website",
     "website:dev": "yarn website dev",
     "website:build": "yarn website build",

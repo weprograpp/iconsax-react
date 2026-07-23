@@ -1,0 +1,58 @@
+{
+  "packageVersion": "0.0.8",
+  "tooling": {
+    "bundler": "esbuild@0.25.12",
+    "react": "external",
+    "format": "esm",
+    "minification": true,
+    "gzipLevel": 9
+  },
+  "legacy": {
+    "EmojiHappy": {
+      "raw": 41681,
+      "minified": 6487,
+      "gzip": 2272,
+      "brotli": 1949
+    },
+    "ShieldSecurity": {
+      "raw": 41712,
+      "minified": 6428,
+      "gzip": 2395,
+      "brotli": 2040
+    },
+    "Heart": {
+      "raw": 40176,
+      "minified": 5254,
+      "gzip": 2162,
+      "brotli": 1828
+    },
+    "Bitcoin": {
+      "raw": 43596,
+      "minified": 8041,
+      "gzip": 2660,
+      "brotli": 2313
+    },
+    "Gallery": {
+      "raw": 41682,
+      "minified": 6483,
+      "gzip": 2441,
+      "brotli": 2092
+    },
+    "Cloud": {
+      "raw": 41627,
+      "minified": 6386,
+      "gzip": 2532,
+      "brotli": 2146
+    }
+  },
+  "legacyMulti": {
+    "raw": 74873,
+    "minified": 29482,
+    "gzip": 7033,
+    "brotli": 5795
+  },
+  "legacyPackage": {
+    "compressed": 900608,
+    "unpacked": 15431396
+  }
+}

@@ -1,47 +1,52 @@
-import resolve from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
-import copy from 'rollup-plugin-copy';
-import external from 'rollup-plugin-peer-deps-external';
 import multiInput from 'rollup-plugin-multi-input';
+
+const removeRedundantReactSideEffectImports = () => ({
+  name: 'remove-redundant-react-side-effect-imports',
+  renderChunk(code, chunk, { format }) {
+    if (
+      !chunk.facadeModuleId ||
+      /[/\\]runtime[/\\]createIcon\.js$/.test(chunk.facadeModuleId)
+    ) {
+      return null;
+    }
+
+    const declaration =
+      format === 'cjs' ? "\nrequire('react');\n" : "\nimport 'react';\n";
+    if (!code.includes(declaration)) return null;
+    return { code: code.replace(declaration, '\n'), map: null };
+  },
+});
 
 const input = ['src/**/*.js'];
 const output = [
   {
     dir: 'dist/cjs',
     format: 'cjs',
-    exports: 'auto',
+    exports: 'named',
     sourcemap: false,
   },
   {
     dir: 'dist/esm',
     format: 'es',
-    exports: 'auto',
+    exports: 'named',
     sourcemap: false,
   },
 ];
 
-const plugins = [];
-plugins.push(
-  babel({
-    exclude: 'node_modules/**',
-  }),
-);
-plugins.push(multiInput());
-plugins.push(external());
-plugins.push(resolve());
-plugins.push(commonjs());
-plugins.push(
-  copy({
-    targets: [
-      { src: 'src/index.d.ts', dest: 'dist' },
-      { src: '../../meta-data.json', dest: 'dist' },
-    ],
-  }),
-);
 export default {
   input,
   output,
-  external: ['react', 'prop-types'],
-  plugins,
+  external: ['react'],
+  treeshake: {
+    moduleSideEffects: false,
+  },
+  plugins: [
+    multiInput(),
+    babel({
+      babelHelpers: 'bundled',
+      exclude: 'node_modules/**',
+    }),
+    removeRedundantReactSideEffectImports(),
+  ],
 };
