@@ -1,24 +1,48 @@
 const path = require('path');
 const fs = require('fs');
 
-const { readdirSync } = fs;
+const SOURCE_VARIANTS = ['Bold', 'Broken', 'Bulk', 'Linear', 'Outline', 'TwoTone'];
 
-const rootDir = path.resolve();
-
-const IconsDir = path.join(rootDir, 'icons');
-// does not matter witch variant(Linear, Outline, TwoTone,...) folder
-// cause all of them have similar icon name
-const categoriesDir = path.join(IconsDir, 'Linear');
-
-const fetchIcon = async () => {
-  const variants = readdirSync(IconsDir);
-
-  const _categories = readdirSync(categoriesDir);
-  const categories = _categories.map((x) => {
-    const icons = readdirSync(path.join(categoriesDir, x));
-    return { name: x, icons };
-  });
-  return { variants, categories };
+const byName = (left, right) => {
+  if (left < right) return -1;
+  if (left > right) return 1;
+  return 0;
 };
+
+const fetchIcon = (rootDir = path.resolve(__dirname, '..')) => {
+  const iconsDir = path.join(rootDir, 'icons');
+  const canonicalVariantDir = path.join(iconsDir, 'Linear');
+  const categories = fs
+    .readdirSync(canonicalVariantDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort(byName)
+    .map((categoryName) => {
+      const icons = fs
+        .readdirSync(path.join(canonicalVariantDir, categoryName), {
+          withFileTypes: true,
+        })
+        .filter((entry) => entry.isFile() && entry.name.endsWith('.svg'))
+        .map((entry) => entry.name)
+        .sort(byName);
+
+      for (const icon of icons) {
+        for (const variant of SOURCE_VARIANTS) {
+          const sourcePath = path.join(iconsDir, variant, categoryName, icon);
+          if (!fs.existsSync(sourcePath)) {
+            throw new Error(
+              `Missing ${variant} source for ${categoryName}/${icon}: ${sourcePath}`,
+            );
+          }
+        }
+      }
+
+      return { name: categoryName, icons };
+    });
+
+  return { variants: SOURCE_VARIANTS, categories };
+};
+
+fetchIcon.SOURCE_VARIANTS = SOURCE_VARIANTS;
 
 module.exports = fetchIcon;
