@@ -1,0 +1,52 @@
+name: Publish React package
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-publish-${{ github.event.release.tag_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Build and publish @weprograpp/iconsax-react
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      NPM_TAG: ${{ github.event.release.prerelease && 'next' || 'latest' }}
+
+    steps:
+      - name: Check out the released commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          package-manager-cache: false
+          registry-url: https://registry.npmjs.org
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build and test the package
+        run: yarn test:react
+
+      - name: Verify the npm package contents
+        working-directory: packages/iconsax-react
+        run: npm pack --dry-run
+
+      - name: Publish to npm
+        working-directory: packages/iconsax-react
+        run: npm publish --access public --tag "$NPM_TAG"
