@@ -64,9 +64,9 @@ const main = () => {
   const smoke = `
     const React = require('react');
     const { renderToStaticMarkup } = require('react-dom/server');
-    const { EmojiHappy: RootIcon } = require('iconsax-react');
-    const { EmojiHappy: DynamicIcon } = require('iconsax-react/icons/EmojiHappy');
-    const { EmojiHappy: FixedIcon } = require('iconsax-react/linear/EmojiHappy');
+    const { EmojiHappy: RootIcon } = require('@weprograpp/iconsax-react');
+    const { EmojiHappy: DynamicIcon } = require('@weprograpp/iconsax-react/icons/EmojiHappy');
+    const { EmojiHappy: FixedIcon } = require('@weprograpp/iconsax-react/linear/EmojiHappy');
     for (const Component of [RootIcon, DynamicIcon, FixedIcon]) {
       const markup = renderToStaticMarkup(React.createElement(Component, { color: 'red' }));
       if (!markup.includes('<svg') || !markup.includes('red')) process.exit(1);

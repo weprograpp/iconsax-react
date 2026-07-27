@@ -86,8 +86,8 @@ const main = async () => {
 
   for (const [icon, variantPath] of cases) {
     const legacySource = `import { ${icon} } from 'iconsax-react-legacy'; console.log(${icon});`;
-    const dynamicSource = `import { ${icon} } from 'iconsax-react/icons/${icon}'; console.log(${icon});`;
-    const fixedSource = `import { ${icon} } from 'iconsax-react/${variantPath}/${icon}'; console.log(${icon});`;
+    const dynamicSource = `import { ${icon} } from '@weprograpp/iconsax-react/icons/${icon}'; console.log(${icon});`;
+    const fixedSource = `import { ${icon} } from '@weprograpp/iconsax-react/${variantPath}/${icon}'; console.log(${icon});`;
 
     report.legacy[icon] = await measure(legacySource);
     report.current[icon] = await measure(dynamicSource);
@@ -105,7 +105,7 @@ const main = async () => {
   }
 
   const rootImport = await measure(
-    `import { EmojiHappy } from 'iconsax-react'; console.log(EmojiHappy);`,
+    `import { EmojiHappy } from '@weprograpp/iconsax-react'; console.log(EmojiHappy);`,
   );
   const leafImport = report.current.EmojiHappy;
   report.root = rootImport;
@@ -132,7 +132,7 @@ const main = async () => {
   const fixedImports = cases
     .map(
       ([icon, variantPath]) =>
-        `import { ${icon} } from 'iconsax-react/${variantPath}/${icon}';`,
+        `import { ${icon} } from '@weprograpp/iconsax-react/${variantPath}/${icon}';`,
     )
     .join('\n');
   const fixedMulti = await measure(

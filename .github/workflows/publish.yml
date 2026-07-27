@@ -49,4 +49,6 @@ jobs:
 
       - name: Publish to npm
         working-directory: packages/iconsax-react
-        run: npm publish --access public --tag "$NPM_TAG"
+        run:
+          npm version ${{ github.event.release.tag_name }} --legacy-peer-deps && npm publish
+          --access public --tag "$NPM_TAG"
